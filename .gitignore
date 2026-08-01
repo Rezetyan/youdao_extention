@@ -1,0 +1,40 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dependencies and generated builds
+node_modules/
+dist/
+build/
+coverage/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+
+# Browser automation artifacts
+.playwright-cli/
+playwright-report/
+test-results/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+
+# Local AI workflow configuration and session state
+.agents/
+.codex/
+.trellis/
+AGENTS.md
+.gitattributes

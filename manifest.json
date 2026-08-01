@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "网易有道翻译键盘快捷键",
+  "version": "1.0.0",
+  "description": "用键盘收藏单词、播放英美发音并搜索其他单词。",
+  "content_scripts": [
+    {
+      "matches": ["https://www.youdao.com/result*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
