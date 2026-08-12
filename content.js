@@ -115,6 +115,11 @@
 
     resultFocusTimer = window.setTimeout(() => {
       resultFocusTimer = null;
+
+      if (!isYoudaoResultPage()) {
+        return;
+      }
+
       focusResultPage();
     }, RESULT_FOCUS_DELAY_MS);
   }
@@ -139,7 +144,24 @@
   }
 
   function handleKeydown(event) {
-    if (!isYoudaoResultPage() || event.isComposing) {
+    if (event.isComposing) {
+      return;
+    }
+
+    if (
+      !event.defaultPrevented &&
+      event.key === "Enter" &&
+      isSearchInputTarget(event.target) &&
+      !event.shiftKey &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey
+    ) {
+      scheduleResultFocus();
+      return;
+    }
+
+    if (!isYoudaoResultPage()) {
       return;
     }
 
@@ -159,16 +181,9 @@
       return;
     }
 
-    if (
-      event.key === "Enter" &&
-      isSearchInputTarget(event.target) &&
-      !event.shiftKey &&
-      !event.ctrlKey &&
-      !event.altKey &&
-      !event.metaKey
-    ) {
-      scheduleResultFocus();
-      return;
+    if (resultFocusTimer !== null) {
+      window.clearTimeout(resultFocusTimer);
+      resultFocusTimer = null;
     }
 
     if (isEditableTarget(event.target)) {
@@ -213,5 +228,8 @@
   }
 
   window.addEventListener("keydown", handleKeydown, true);
-  scheduleResultFocus();
+
+  if (isYoudaoResultPage()) {
+    scheduleResultFocus();
+  }
 })();
